@@ -28,3 +28,9 @@ body {
     Roboto,
     sans-serif;
 }
+
+@layer components {
+  .dcf-input {
+    @apply w-40 rounded border border-zinc-300 bg-transparent px-2 py-1 font-mono text-sm dark:border-zinc-600;
+  }
+}

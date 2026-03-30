@@ -26,3 +26,23 @@ export type ProtocolSnapshot = {
   /** Last ~120 daily points [unixSec, feesUsd] */
   feesChart: [number, number][];
 };
+
+export type ProtocolOverride = {
+  annualFeesUsd?: number;
+  fdvUsd?: number;
+};
+
+export type ProtocolsPayload = {
+  updatedAt: string;
+  protocols: ProtocolSnapshot[];
+};
+
+export type DashboardTableRow = {
+  snapshot: ProtocolSnapshot;
+  effectiveGrossAnnual: number;
+  effectiveFdv: number | null;
+  enterpriseValue: number;
+  intrinsicToFdv: number | null;
+  hasFeesIssue: boolean;
+  hasMarketIssue: boolean;
+};

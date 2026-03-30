@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computeDcf } from "./dcf";
+import { computeDcf } from "@/lib/dcf";
 
 describe("computeDcf", () => {
   it("matches manual PV for n=1, zero growth, zero terminal growth edge", () => {

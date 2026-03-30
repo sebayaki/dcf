@@ -26,7 +26,9 @@ export async function fetchFeesSummary(
 }
 
 /** Annualized USD from trailing 30d protocol fees (DefiLlama definition). */
-export function annualizedFeesFrom30d(total30d: number | null | undefined): number {
+export function annualizedFeesFrom30d(
+  total30d: number | null | undefined
+): number {
   if (total30d == null || Number.isNaN(total30d)) return 0;
   return (total30d / 30) * 365;
 }

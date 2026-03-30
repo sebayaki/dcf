@@ -1,4 +1,4 @@
-import { DeFiDcfDashboard } from "@/components/DeFiDcfDashboard";
+import { DeFiDcfDashboard } from "@/components/dcf/DeFiDcfDashboard";
 
 export default function App() {
   return (

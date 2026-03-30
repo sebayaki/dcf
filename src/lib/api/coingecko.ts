@@ -15,6 +15,38 @@ export type CoinMarketRow = {
   image_url?: string;
 };
 
+type CoinMarketApiRow = {
+  id: string;
+  symbol: string;
+  name: string;
+  image: string;
+  current_price: number | null;
+  market_cap: number | null;
+  fully_diluted_valuation: number | null;
+  total_volume: number | null;
+  circulating_supply: number | null;
+  total_supply: number | null;
+  max_supply: number | null;
+  price_change_percentage_24h: number | null;
+};
+
+function mapRow(x: CoinMarketApiRow): CoinMarketRow {
+  return {
+    id: x.id,
+    symbol: x.symbol,
+    name: x.name,
+    current_price: x.current_price,
+    market_cap: x.market_cap,
+    fully_diluted_valuation: x.fully_diluted_valuation,
+    total_volume: x.total_volume,
+    circulating_supply: x.circulating_supply,
+    total_supply: x.total_supply,
+    max_supply: x.max_supply,
+    price_change_percentage_24h: x.price_change_percentage_24h,
+    image_url: x.image,
+  };
+}
+
 export async function fetchMarketsByIds(
   ids: string[],
   init?: RequestInit
@@ -36,32 +68,6 @@ export async function fetchMarketsByIds(
   if (!res.ok) {
     throw new Error(`CoinGecko markets: ${res.status}`);
   }
-  const data = (await res.json()) as Array<{
-    id: string;
-    symbol: string;
-    name: string;
-    image: string;
-    current_price: number | null;
-    market_cap: number | null;
-    fully_diluted_valuation: number | null;
-    total_volume: number | null;
-    circulating_supply: number | null;
-    total_supply: number | null;
-    max_supply: number | null;
-    price_change_percentage_24h: number | null;
-  }>;
-  return data.map((x) => ({
-    id: x.id,
-    symbol: x.symbol,
-    name: x.name,
-    current_price: x.current_price,
-    market_cap: x.market_cap,
-    fully_diluted_valuation: x.fully_diluted_valuation,
-    total_volume: x.total_volume,
-    circulating_supply: x.circulating_supply,
-    total_supply: x.total_supply,
-    max_supply: x.max_supply,
-    price_change_percentage_24h: x.price_change_percentage_24h,
-    image_url: x.image,
-  }));
+  const data = (await res.json()) as CoinMarketApiRow[];
+  return data.map(mapRow);
 }

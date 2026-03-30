@@ -21,6 +21,12 @@ export const DEFAULT_DCF_UI: DcfUiState = {
   horizonYears: 5,
 };
 
+export const SCENARIO_OPTIONS: { id: ScenarioName; label: string }[] = [
+  { id: "conservative", label: "Conservative" },
+  { id: "base", label: "Base" },
+  { id: "optimistic", label: "Optimistic" },
+];
+
 export const PRESETS: Record<ScenarioName, DcfUiState> = {
   conservative: {
     profitMargin: 0.25,

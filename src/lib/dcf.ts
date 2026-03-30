@@ -73,11 +73,18 @@ export function computeDcf(inputs: DcfInputs): DcfResult {
 export function dcfSensitivity(
   base: DcfInputs,
   delta: number
-): { discountRateMinus: DcfResult; base: DcfResult; discountRatePlus: DcfResult } {
+): {
+  discountRateMinus: DcfResult;
+  base: DcfResult;
+  discountRatePlus: DcfResult;
+} {
   return {
     discountRateMinus: computeDcf({
       ...base,
-      discountRate: Math.max(base.terminalGrowth + 1e-6, base.discountRate - delta),
+      discountRate: Math.max(
+        base.terminalGrowth + 1e-6,
+        base.discountRate - delta
+      ),
     }),
     base: computeDcf(base),
     discountRatePlus: computeDcf({

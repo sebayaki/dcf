@@ -6,8 +6,8 @@ A static web app that compares major DeFi protocols using **DefiLlama** protocol
 
 ## Stack
 
-- [Vite](https://vitejs.dev/) + React + TypeScript  
-- [Tailwind CSS](https://tailwindcss.com/) v4  
+- [Vite](https://vitejs.dev/) + React + TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) v4
 - Data fetched **in the browser** from public APIs (no backend)
 
 ## Scripts
@@ -19,7 +19,19 @@ npm run build    # production bundle → dist/
 npm run preview  # serve dist locally
 npm run test
 npm run lint
+npm run format   # Prettier
 ```
+
+## Project layout
+
+| Path | Role |
+|------|------|
+| `src/components/dcf/` | Dashboard UI (table, detail, chart, sliders) |
+| `src/hooks/` | `useDeFiDcfDashboard` state and derived data |
+| `src/lib/api/` | DefiLlama & CoinGecko HTTP clients |
+| `src/lib/` | DCF math, protocol list, `protocolData` loader, `dashboardRows` |
+| `src/utils/` | Formatting and `localStorage` helpers |
+| `src/tests/` | Vitest specs (import app code via `@/lib/...`) |
 
 ## GitHub Pages
 
