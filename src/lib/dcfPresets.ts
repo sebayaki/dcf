@@ -1,5 +1,19 @@
 import type { DcfInputs } from "./dcf";
 
+/** Gordon terminal g cap: below discount rate and a hard ceiling (matches slider). */
+export function terminalGrowthMax(discountRate: number): number {
+  return Math.min(0.06, discountRate - 0.01);
+}
+
+/** Clamp terminal growth so DCF inputs stay feasible (Gordon needs g less than r). */
+export function sanitizeDcf(ui: DcfUiState): DcfUiState {
+  const cap = terminalGrowthMax(ui.discountRate);
+  if (ui.terminalGrowth > cap) {
+    return { ...ui, terminalGrowth: cap };
+  }
+  return ui;
+}
+
 export type ScenarioName = "conservative" | "base" | "optimistic";
 
 export type DcfUiState = Pick<

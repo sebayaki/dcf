@@ -48,7 +48,10 @@ export function DeFiDcfDashboard() {
         </h1>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-3xl leading-relaxed">
           This tool approximates intrinsic value using DefiLlama protocol fees
-          (30-day annualized) and CoinGecko FDV under the assumptions below.{" "}
+          (30-day annualized) and CoinGecko FDV under the assumptions below.
+          The DCF output is a stylized enterprise-style value of fee cash flows;
+          comparing it to token FDV mixes protocol economics with market cap and
+          is only a rough heuristic.{" "}
           <strong className="font-medium text-zinc-700 dark:text-zinc-300">
             This is not investment advice
           </strong>

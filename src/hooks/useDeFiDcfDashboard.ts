@@ -3,6 +3,7 @@ import { dcfSensitivity, type DcfInputs } from "@/lib/dcf";
 import {
   DEFAULT_DCF_UI,
   PRESETS,
+  sanitizeDcf,
   type DcfUiState,
   type ScenarioName,
 } from "@/lib/dcfPresets";
@@ -27,9 +28,11 @@ export function useDeFiDcfDashboard() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [dcf, setDcf] = useState<DcfUiState>(() =>
-    typeof window !== "undefined"
-      ? readJson(STORAGE_KEYS.dcf, DEFAULT_DCF_UI)
-      : DEFAULT_DCF_UI
+    sanitizeDcf(
+      typeof window !== "undefined"
+        ? readJson(STORAGE_KEYS.dcf, DEFAULT_DCF_UI)
+        : DEFAULT_DCF_UI
+    )
   );
   const [scenario, setScenario] = useState<ScenarioName>(initialScenario);
   const [overrides, setOverrides] = useState<Record<string, ProtocolOverride>>(
@@ -58,8 +61,9 @@ export function useDeFiDcfDashboard() {
   }, []);
 
   const persistDcf = useCallback((next: DcfUiState) => {
-    setDcf(next);
-    writeJson(STORAGE_KEYS.dcf, next);
+    const s = sanitizeDcf(next);
+    setDcf(s);
+    writeJson(STORAGE_KEYS.dcf, s);
   }, []);
 
   const applyPreset = useCallback(
@@ -132,7 +136,11 @@ export function useDeFiDcfDashboard() {
 
   const patchDcf = useCallback(
     (patch: Partial<DcfUiState>) => {
-      persistDcf({ ...dcf, ...patch });
+      const next = { ...dcf, ...patch };
+      if (patch.horizonYears != null) {
+        next.horizonYears = Math.round(patch.horizonYears);
+      }
+      persistDcf(next);
     },
     [dcf, persistDcf]
   );

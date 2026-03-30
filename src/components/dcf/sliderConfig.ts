@@ -1,4 +1,4 @@
-import type { DcfUiState } from "@/lib/dcfPresets";
+import { terminalGrowthMax, type DcfUiState } from "@/lib/dcfPresets";
 
 type MaxFn = (d: DcfUiState) => number;
 
@@ -48,7 +48,7 @@ export const DCF_SLIDER_FIELDS: DcfSliderField[] = [
     key: "terminalGrowth",
     label: "Terminal growth (Gordon)",
     min: 0,
-    max: (d) => Math.min(0.06, d.discountRate - 0.01),
+    max: (d) => terminalGrowthMax(d.discountRate),
     step: 0.0025,
     format: (v) => `${(v * 100).toFixed(1)}%`,
   },
